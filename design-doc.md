@@ -51,8 +51,13 @@ Android app that "translates" text into a series of audio honks. Features differ
   * Create goose honk text translation -- Finished
     * Display honks depending on text length and punctuation
   * Create App Icon and Play Store Assets -- Finished
-  * Publish to Play Store -- Currently in review process
+  * Publish to Play Store -- Finished
   * Future updates
     * Replace goose images with custom art
     * Get better audio clips
     * Allow sharing of translations/sound clips
+
+## How To Run ##
+
+`npx expo start`
+

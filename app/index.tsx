@@ -1,4 +1,4 @@
-import { View, StyleSheet, TextInput, Text, Dimensions, ImageSourcePropType } from 'react-native';
+import { View, StyleSheet, TextInput, Text, Dimensions, ImageSourcePropType, ScrollView } from 'react-native';
 import Button from '@/components/Button';
 import React, { useState } from 'react';
 import IconButton from './IconButton';
@@ -149,17 +149,22 @@ export default function Index() {
         <IconButton imgSource={imgSource} setImgSource={setImgSource} setGooseName={setGooseName}/>
         <Text style={styles.gooseName}>{gooseName}</Text>
       </View>
-      <TextInput
-        style={[styles.input, styles.textInputContainer, ]}
-        onChangeText={setInputText}
-        value={inputText}
-        multiline
-        scrollEnabled
-        placeholder={inputText.length === 0 ? "Insert Text Here" : ""}
-      />
+      <View style={styles.inputContainer}>
+        <ScrollView style={styles.scrollView}>
+          <TextInput
+            style={[styles.input]}
+            onChangeText={setInputText}
+            value={inputText}
+            multiline
+            placeholder={inputText.length === 0 ? "Insert Text Here" : ""}
+          />
+        </ScrollView>
+      </View>
       
       <View style={styles.textInputContainer}>
-        <Text style={[styles.translationText]}>{translationText}</Text>
+        <ScrollView style={styles.scrollView}>
+          <Text style={[styles.translationText]} selectable>{translationText}</Text>
+        </ScrollView>
         <AudioPlayerButton inputtedText={inputtedText} gooseName={gooseName}/>
       </View>   
       <View style={styles.footerContainer}>
@@ -187,12 +192,17 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
+  inputContainer: {
+    backgroundColor: "#ffffff",
+    marginVertical: 10,
+    borderRadius: 20,
+    width: '80%',
+    height: boxHeight,
+    position: 'relative'
+  },
   input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
     fontSize: 28,
+    paddingBottom: 10,
   },
   container: {
     flex: 1,
@@ -215,22 +225,17 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: '80%',
     height: boxHeight, 
-    verticalAlign: 'top'
-  },
-  translationTextContainer: {
-    borderRadius: 20,
-    width: '80%',
-    height: boxHeight,
-    overflow: 'hidden', 
+    verticalAlign: 'top',
     position: 'relative'
   },
-  translationText: {
-    height: '100%',
-    borderWidth: 1,
+  scrollView: {
+    flex: 1,
     padding: 10,
-    backgroundColor: "#ffffff",
-    borderRadius: 20,
+    paddingBottom: 10,
+  },
+  translationText: {
     fontSize: 28,
+    paddingBottom: 10,
   },
    image: {
     width: 320,

@@ -2,6 +2,7 @@ import Button from "@/components/Button";
 import React, { useState } from "react";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Audio } from "expo-av";
+import MD5 from 'crypto-js/md5';
 
 export default function AudioPlayerButton ({inputtedText, gooseName}: {inputtedText: string, gooseName: string}) {
 
@@ -43,13 +44,11 @@ export default function AudioPlayerButton ({inputtedText, gooseName}: {inputtedT
         require('@/assets/audio/finished/honk-113-long.mp3'),
 	]
 
-    // Simple hash function to generate a seed from the word
+    // MD5 hash function that returns a number
     const hash = (word: string) => {
-        let hashValue = 0;
-        for (let i = 0; i < word.length; i++) {
-            hashValue += word.charCodeAt(i) * i;
-        }
-        return hashValue;
+        const md5Hash = MD5(word).toString();
+        // Convert first 8 characters of MD5 hash to a number
+        return parseInt(md5Hash.substring(0, 8), 16);
     };
 
     // Play the sound for each word
@@ -89,11 +88,6 @@ export default function AudioPlayerButton ({inputtedText, gooseName}: {inputtedT
           }
         });
 
-        // // Set a timer to resolve after 250 ms
-        // timer = setTimeout(() => {
-        //   resolve(); // Resolve the promise after 400 ms
-        // }, isLongHonk ? (800) : (400));
-
         // Get the duration of the sound
         sound.getStatusAsync().then((status) => {
           if (status.isLoaded) {
@@ -125,6 +119,7 @@ export default function AudioPlayerButton ({inputtedText, gooseName}: {inputtedT
             right: 10,
             borderWidth: 2,
             borderRadius: 10,
+            backgroundColor: 'white',
           }} 
         /> );
 }
